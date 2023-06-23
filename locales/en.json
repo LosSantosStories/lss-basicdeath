@@ -1,0 +1,23 @@
+{
+    "user_not_found": "Player not found ID: %s",
+    "went_wrong": "Something went wrong",
+
+    "header": "You are dead",
+    "description": "Ambulances were notified",
+
+    "respawn_header": "Ambulance",
+    "respawn_description": "You woke up at the %s",
+
+    "admin_revive": "Revive player(s)",
+    "revive_id": "Player id or all",
+    "not_dead": "The player is not dead ID: %s",
+    "got_revived": "You were revived by an administrator",
+
+    "all_header": "Revive all",
+    "all_content": "You want to revive everyone?",
+
+    "admin_kill": "Kill Player",
+    "kill_id": "Player id",
+    "already_dead": "The player is already dead ID: %s",
+    "got_killed": "You were killed by an administrator"
+}
