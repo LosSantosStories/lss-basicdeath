@@ -1,10 +1,9 @@
 RegisterNetEvent('lss-basicdeath:server:SetDeathStatus', function (isDead)
 	local xPlayer = ESX.GetPlayerFromId(source)
-
 	if type(isDead) == 'boolean' then
+		Player(xPlayer.source).state['isDead'] = isDead
 		MySQL.update('UPDATE users SET is_dead = ? WHERE identifier = ?', { isDead, xPlayer.identifier })
 	end
-
 end)
 
 RegisterNetEvent('lss-basicdeath:server:ClearInventory',function ()

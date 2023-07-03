@@ -1,10 +1,12 @@
-RegisterNetEvent('lss-basicdeath:client:SetPlayerDead', function ()
-
+RegisterNetEvent('lss-basicdeath:client:SetPlayerDead', function()
+    TriggerServerEvent('lss-basicdeath:server:SetDeathStatus', true)
     DoScreenFadeOut(500)
     Wait(500)
-    LocalPlayer.state:set('isDead', true, true)
+    if lib.progressActive() then
+        lib.cancelProgress()
+    end
+    exports.ox_target:disableTargeting(true)
     LocalPlayer.state:set('invBusy', true, true)
-    TriggerServerEvent('lss-basicdeath:server:SetDeathStatus', true)
 
     lib.requestAnimDict("veh@low@front_ps@idle_duck")
     lib.requestAnimDict('combat@damage@writhe')
@@ -32,18 +34,19 @@ RegisterNetEvent('lss-basicdeath:client:SetPlayerDead', function ()
         timer = Config.DeathTime,
         header = locale('header'),
         desc = locale('description')
-    })  
+    })
     DoScreenFadeIn(500)
-
     while LocalPlayer.state.isDead do
-        if IsPedInAnyVehicle(cache.ped, false) then
-            if not IsEntityPlayingAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 3) then
-                TaskPlayAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 1.0, 1.0, -1, 1, 0, false, false, false)
-            end
-        else
-            if not IsEntityPlayingAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 3) then
-                TaskPlayAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 1.0, 1.0, -1, 1, 0, false, false,
-                    false)
+        if not LocalPlayer.state.inCPR then
+            if IsPedInAnyVehicle(cache.ped, false) then
+                if not IsEntityPlayingAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 3) then
+                    TaskPlayAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 1.0, 1.0, -1, 1, 0, false, false, false)
+                end
+            else
+                if not IsEntityPlayingAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 3) then
+                    TaskPlayAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 1.0, 1.0, -1, 1, 0, false, false,
+                        false)
+                end
             end
         end
         DisableAllControlActions(0)
@@ -64,32 +67,36 @@ RegisterNetEvent('lss-basicdeath:client:SetPlayerDead', function ()
 end)
 
 RegisterNetEvent('lss-basicdeath:client:RevivePlayer', function(type)
+    TriggerServerEvent('lss-basicdeath:server:SetDeathStatus', false)
     DoScreenFadeOut(500)
     Wait(500)
     SendNUIMessage({ type = "hide" })
-    LocalPlayer.state:set('isDead', false, true)
     LocalPlayer.state:set('invBusy', false, true)
-        if type ~= 'admin' then
-            local ClosestHospital = nil
-            local MinDistance = math.huge
+    if type == nil then
+        local ClosestHospital = nil
+        local MinDistance = math.huge
 
-            for k, v in pairs(Config.Hopsitals) do
-                local PlayerCoords = GetEntityCoords(cache.ped)
-                local Distance = math.sqrt(((PlayerCoords.x - v.coords.x) * (PlayerCoords.x - v.coords.x)) +
-                    ((PlayerCoords.y - v.coords.y) * (PlayerCoords.y - v.coords.y)))
-                if Distance < MinDistance then
-                    MinDistance = Distance
-                    ClosestHospital = v
-                end
+        for k, v in pairs(Config.Hopsitals) do
+            local PlayerCoords = GetEntityCoords(cache.ped)
+            local Distance = math.sqrt(((PlayerCoords.x - v.coords.x) * (PlayerCoords.x - v.coords.x)) +
+                ((PlayerCoords.y - v.coords.y) * (PlayerCoords.y - v.coords.y)))
+            if Distance < MinDistance then
+                MinDistance = Distance
+                ClosestHospital = v
             end
-
-            TriggerServerEvent('lss-basicdeath:server:ClearInventory')
-            lib.notify({title = locale('respawn_header'),description = locale('respawn_description', ClosestHospital.name),type = 'success'})
-            NetworkResurrectLocalPlayer(ClosestHospital.coords, true, false)
-        elseif type == 'admin' then
-            NetworkResurrectLocalPlayer(GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true, false)
         end
-    TriggerServerEvent('lss-basicdeath:server:SetDeathStatus', false)
+
+        TriggerServerEvent('lss-basicdeath:server:ClearInventory')
+        lib.notify({
+            title = locale('respawn_header'),
+            description = locale('respawn_description', ClosestHospital.name),
+            type = 'success'
+        })
+        NetworkResurrectLocalPlayer(ClosestHospital.coords, true, false)
+    elseif type == 'admin' then
+        NetworkResurrectLocalPlayer(GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true, false)
+    end
+    exports.ox_target:disableTargeting(false)
     DoScreenFadeIn(500)
 
     TriggerEvent('esx_basicneeds:resetStatus')

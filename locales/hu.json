@@ -1,0 +1,23 @@
+{
+  "user_not_found": "Játékos nem található ID: %s",
+  "went_wrong": "Hiba történt",
+
+  "header": "Meghaltál",
+  "description": "Mentőszolgálat értesítve lett",
+
+  "respawn_header": "Mentőszolgálat",
+  "respawn_description": "Felébredtél a(z) %s helyen",
+
+  "admin_revive": "Játékos(ok) élesztése",
+  "revive_id": "Játékos azonosító vagy all",
+  "not_dead": "A játékos nem halott ID: %s",
+  "got_revived": "Felélesztett egy adminisztrátor",
+
+  "all_header": "Mindenki felélesztése",
+  "all_content": "Biztosan midenkit felszeretnél éleszteni ?",
+
+  "admin_kill": "Játékos megölése",
+  "kill_id": "Játékos azonosító",
+  "already_dead": "A játékos már halott ID: %s",
+  "got_killed": "Megölt egy adminisztrátor"
+}

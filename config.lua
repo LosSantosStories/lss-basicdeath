@@ -2,7 +2,7 @@ lib.locale()
 
 Config = {}
 
-Config.DeathTime = 15 --In seconds
+Config.DeathTime = 150 --In seconds
 
 Config.WhitelistedItems = {'phone', 'radio'} --When the player respawn these things dontt get deleted
 
