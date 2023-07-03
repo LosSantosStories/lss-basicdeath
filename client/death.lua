@@ -37,16 +37,14 @@ RegisterNetEvent('lss-basicdeath:client:SetPlayerDead', function()
     })
     DoScreenFadeIn(500)
     while LocalPlayer.state.isDead do
-        if not LocalPlayer.state.inCPR then
-            if IsPedInAnyVehicle(cache.ped, false) then
-                if not IsEntityPlayingAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 3) then
-                    TaskPlayAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 1.0, 1.0, -1, 1, 0, false, false, false)
-                end
-            else
-                if not IsEntityPlayingAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 3) then
-                    TaskPlayAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 1.0, 1.0, -1, 1, 0, false, false,
-                        false)
-                end
+        if IsPedInAnyVehicle(cache.ped, false) then
+            if not IsEntityPlayingAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 3) then
+                TaskPlayAnim(cache.ped, "veh@low@front_ps@idle_duck", "sit", 1.0, 1.0, -1, 1, 0, false, false, false)
+            end
+        else
+            if not IsEntityPlayingAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 3) then
+                TaskPlayAnim(cache.ped, 'combat@damage@writhe', 'writhe_loop', 1.0, 1.0, -1, 1, 0, false, false,
+                    false)
             end
         end
         DisableAllControlActions(0)
