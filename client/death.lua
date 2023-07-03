@@ -123,6 +123,7 @@ end)
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(playerData)
+    Wait(100)
     local DeathStatus = lib.callback.await('lss-basicdeath:callback:GetDeathStatus', nil)
     if DeathStatus == true then
         TriggerEvent('lss-basicdeath:client:SetPlayerDead')
