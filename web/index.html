@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>lss-basicdeath</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="screen">
-        <div class="text">
-            <h1 id="header"></h1>
-            <h3 id="desc" ></h3>
-        </div>
-        <div class="timer">
-            <p id="time"></p>
-        </div>
+      <div class="text">
+        <h1 id="header">asdasdasd</h1>
+        <h3 id="desc">ererererere</h3>
+      </div>
+      <div class="pulse">
+        <svg version="1.2" height="300" width="600" viewport="0 0 60 60">
+          <path
+            id="pulse"
+            stroke="rgba(117, 19, 19, 0.9)"
+            fill="none"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+            d="M0,90L250,90Q257,60 262,87T267,95 270,88 273,92t6,35 7,-60T290,127 297,107s2,-11 10,-10 1,1 8,-10T319,95c6,4 8,-6 10,-17s2,10 9,11h210"
+          />
+        </svg>
+      </div>
+      <div class="timer">
+        <p id="time"></p>
+      </div>
     </div>
 
     <script src="index.js"></script>
-</body>
+  </body>
 </html>

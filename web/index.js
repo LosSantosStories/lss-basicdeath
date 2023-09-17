@@ -1,7 +1,7 @@
 let currentTimer = 0;
 var interval
 let isDead = false
-
+let called = false
 window.addEventListener('message', (event) => {
     if (event.data.type === 'show') {
         document.body.style.display = 'block';
@@ -20,7 +20,10 @@ window.addEventListener('message', (event) => {
         document.querySelector('.screen').style.display = 'none';
 
         isDead  = false
+        called = false
         currentTimer = 0
+    } else if (event.data.type === 'change') {
+        $('#desc').text("Sikeresen értesítetted a mentőszolgálatot")
     }
 });
 

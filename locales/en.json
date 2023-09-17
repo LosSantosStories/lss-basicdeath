@@ -3,7 +3,9 @@
   "went_wrong": "Something went wrong",
 
   "header": "You are dead",
-  "description": "Ambulances were notified",
+  "description": "G To call ambulance",
+
+  "injuried_person": "Injuried Person",
 
   "respawn_header": "Ambulance",
   "respawn_description": "You woke up at the %s",
